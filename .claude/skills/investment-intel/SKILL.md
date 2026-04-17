@@ -96,15 +96,18 @@ cp report/TEMPLATE.md "$REPORT"
 
 ### Step 4 — 提交并推送
 
+在当前工作分支提交，然后推送到 `main`（用户授权默认目标）：
+
 ```bash
 git add "$REPORT"
 git commit -m "report: intel snapshot $TS"
-git push -u origin claude/investment-intelligence-skill-ezy7Y
+# 推到 main（普通 fast-forward push，禁止使用 --force）
+git push origin HEAD:main
 ```
 
-push 失败（网络类错误）时指数回退重试最多 4 次（2s/4s/8s/16s）。非网络错误立即失败上报。
+push 失败（网络类错误）时指数回退重试最多 4 次（2s/4s/8s/16s）。非网络错误（例如非 fast-forward、保护分支拒绝）立即失败上报用户，**禁止**使用 `--force` 或跳过钩子。
 
-主线输出：`Pushed $REPORT to claude/investment-intelligence-skill-ezy7Y`.
+主线输出：`Pushed $REPORT to main`.
 
 ### Step 5 — 对用户汇报
 
