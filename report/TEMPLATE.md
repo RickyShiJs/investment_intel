@@ -3,7 +3,7 @@
 **报告时间:** <!-- REPORT_TIME -->
 **覆盖周期:** 过去 8 小时 (自 <!-- SINCE -->)
 **关注区域:** 中东 / 俄乌 / 东亚 / 欧美政治 / 其他突发
-**数据来源:** CNN · BBC · Bloomberg · Al Jazeera · NBC/CBS · X(@realDonaldTrump, @AggregateOsint)
+**数据来源:** CNN · BBC · Bloomberg · Al Jazeera · NBC/CBS · X(@realDonaldTrump, @AggregateOsint) · hormuzstraitmonitor.com
 
 ---
 

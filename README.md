@@ -13,6 +13,7 @@
 
 - CNN · BBC · Bloomberg · Al Jazeera · NBC / CBS
 - X：[@realDonaldTrump](https://x.com/realDonaldTrump) · [@AggregateOsint](https://x.com/AggregateOsint)
+- [hormuzstraitmonitor.com](https://hormuzstraitmonitor.com/) — 霍尔木兹海峡专项仪表盘（过境船数 / 油价 / VLCC 战争险保险费率 / 受困船只）
 
 ## 如何使用
 
