@@ -1,6 +1,6 @@
 ---
 name: investment-intel
-description: 收集过去 8 小时 CNN / BBC / Bloomberg / Al Jazeera / NBC、以及 X 上 @realDonaldTrump 与 @AggregateOsint 的公开信息，按固定十章模板生成「国际局势（多区域热点）/ 油价与能源 / 金融市场影响 / 后续演化」投资情报简报，保存到 report/<UTC>.md 并 commit+push。使用本 skill 的场景：用户请求做一次投资情报搜集 / 国际局势简报 / 地缘与油价每日更新 / 市场每日盘面摘要。
+description: 收集过去 8 小时 CNN / BBC / Bloomberg / Al Jazeera / NBC、X 上 @realDonaldTrump 与 @AggregateOsint，以及 hormuzstraitmonitor.com（霍尔木兹海峡专项仪表盘：过境船数 / 油价 / 保险费率 / 受困船只）的公开信息，按固定十章模板生成「国际局势（多区域热点）/ 油价与能源 / 金融市场影响 / 后续演化」投资情报简报，保存到 report/<UTC>.md 并 commit+push。使用本 skill 的场景：用户请求做一次投资情报搜集 / 国际局势简报 / 地缘与油价每日更新 / 市场每日盘面摘要。
 ---
 
 # Investment Intelligence Skill
@@ -55,7 +55,8 @@ cp report/TEMPLATE.md "$REPORT"
 5. `WebSearch`：`NBC OR CBS` 市场 / 地缘
 6. `WebFetch https://x.com/realDonaldTrump` — 失败 fallback → `WebSearch "Trump Truth Social" last 8 hours`
 7. `WebFetch https://x.com/AggregateOsint` — 失败 fallback → `WebSearch AggregateOsint last 8 hours`
-8. （可选，仅当前面 7 项总条数 < 10）`WebSearch "breaking" <region>` 补充长尾
+8. `WebFetch https://hormuzstraitmonitor.com/` — 霍尔木兹海峡专项仪表盘，抽取：过境船数 / 当前油价（WTI+Brent）/ VLCC 战争险保险费率 / 当前受困或被扣船只清单。失败 fallback → `WebSearch "Hormuz Strait Monitor" transits insurance`
+9. （可选，仅当前面 8 项总条数 < 10）`WebSearch "breaking" <region>` 补充长尾
 
 所有结果保留在 assistant 的上下文里（不写中间文件），只取**过去 8 小时**的条目；带上 `published at` 或等效时间戳的优先。
 
@@ -74,9 +75,9 @@ cp report/TEMPLATE.md "$REPORT"
 | 3.7 | `SECTION_3_5_NBC` | 3-5 要点（市场 / 民意） |
 | 3.8 | `SECTION_4_1_TRUMP` | 2-5 条重要推文 / Truth Social，含时间戳 |
 | 3.9 | `SECTION_4_2_OSINT` | 2-5 条关键 OSINT，含时间戳 |
-| 3.10 | `SECTION_5_1_OIL_PRICE` | WTI/Brent 价位 + 8h 变动 + 成交量异动 |
-| 3.11 | `SECTION_5_2_DRIVERS` | 驱动油价的 3-4 个当前因子 |
-| 3.12 | `SECTION_5_3_CONTRADICTIONS` | 价格与基本面的反向信号 |
+| 3.10 | `SECTION_5_1_OIL_PRICE` | WTI/Brent 价位 + 8h 变动 + 成交量异动；**优先引用 hormuzstraitmonitor.com 的实时价格与 VLCC 战争险保险费率**，标注抓取时间 |
+| 3.11 | `SECTION_5_2_DRIVERS` | 驱动油价的 3-4 个当前因子；**若 hormuzstraitmonitor.com 显示过境船数或受困船只异动，必须作为一条驱动列出**（含具体数值） |
+| 3.12 | `SECTION_5_3_CONTRADICTIONS` | 价格与基本面的反向信号（例如油价跌但保险费率升、过境船数降） |
 | 3.13 | `SECTION_5_4_OUTLOOK` | 12-72 小时价格区间 / 概率 |
 | 3.14 | `SECTION_6_1_EQUITY` | 主要指数收 / 盘中表现 |
 | 3.15 | `SECTION_6_2_FX_SAFEHAVEN` | DXY / JPY / CHF / 黄金 / UST10Y |
