@@ -1,6 +1,6 @@
 # investment_intel
 
-自动化投资情报简报仓库。每次调用 Claude Code Skill `/investment-intel`，即生成一份覆盖**过去 8 小时**的国际局势简报，保存到 `report/` 目录，文件名以 UTC 时间戳命名。
+自动化投资情报简报仓库。每次调用 Claude Code Skill `/investment-intel`，即生成一份覆盖**过去 24 小时**的国际局势简报，保存到 `report/` 目录，文件名以 UTC 时间戳命名。
 
 ## 覆盖范围
 
@@ -24,7 +24,7 @@
 
 Skill 会自动：
 
-1. 抓取过去 8 小时的公开信息（每源一次独立调用）
+1. 抓取过去 24 小时的公开信息（每源一次独立调用）
 2. 按 `report/TEMPLATE.md` 的十章结构填充
 3. 保存为 `report/YYYY-MM-DD_HHMM_UTC.md`
 4. Commit 并 push 到开发分支
@@ -43,7 +43,7 @@ Skill 会自动：
 ## 报告结构（十章）
 
 1. 执行摘要
-2. 过去 8 小时关键事件时间线
+2. 过去 24 小时关键事件时间线
 3. 国际媒体综合（CNN / BBC / Bloomberg / Al Jazeera / NBC）
 4. Twitter/X 小道消息
 5. 能源市场分析
